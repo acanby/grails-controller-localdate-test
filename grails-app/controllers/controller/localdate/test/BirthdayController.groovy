@@ -18,7 +18,7 @@ class BirthdayController {
      */
     def birthdayLocalDate(LocalDate birthday) {
         if (!birthday) {
-            birthday = LocalDate.now()
+            throw new RuntimeException("Could not bind birthday")
         }
 
         log.info("Birthday is {}", birthday)
@@ -34,7 +34,7 @@ class BirthdayController {
      */
     def birthdayLocalDateCommand(LocalDateCommand command) {
         if (!command.birthday) {
-            command.birthday = LocalDate.now()
+            throw new RuntimeException("Could not bind command.birthday")
         }
 
         log.info("Birthday is {}", command.birthday)
@@ -51,10 +51,6 @@ class BirthdayController {
      * not be what is expected by the developer as it will always have a value, but not necessarily the provided value
      */
     def birthdayDate(Date birthday) {
-        if (!birthday) {
-            birthday = new Date()
-        }
-
         LocalDate localDate = birthday.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
 
         log.info("Birthday is {}", birthday)
